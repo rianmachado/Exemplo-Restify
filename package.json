@@ -1,0 +1,20 @@
+{
+  "name": "restify-webhook-rawbody-ts-silenced",
+  "version": "1.0.0",
+  "description": "Exemplo Restify Rian",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "restify": "^11.1.0",
+    "restify-cors-middleware2": "^2.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}
