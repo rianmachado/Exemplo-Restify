@@ -16,26 +16,30 @@ server.post(
     try {
       let parsedBody: any = req.body;
 
-      // 🔑 Garantia: se por acaso o Restify entregar como string, tentamos parsear
+      // Se vier como string escapada, força parse manual
       if (typeof parsedBody === 'string') {
         try {
+          console.log('>>>>>>>> VEIO COMO STRING, ESCAPADA...');
           parsedBody = JSON.parse(parsedBody);
         } catch {
           console.warn('Body veio como string não parseável.');
         }
       }
 
-      // 🔑 JSON normalizado (string simples)
+      // JSON normalizado
       const rawBody = JSON.stringify(parsedBody);
 
-      // 🔑 JSON com escapes (\")
-      const escapedString = JSON.stringify(rawBody);
+      // Força preservação das barras escapadas (\/)
+      const withEscapedSlashes = rawBody.replace(/\//g, '\\/');
+
+      // Versão final escapada
+      const escapedString = JSON.stringify(withEscapedSlashes);
 
       console.log('=== [WEBHOOK RECEBIDO] ===');
       console.log('Content-Type:', req.headers['content-type']);
       console.log('Raw Body (JSON normalizado):', rawBody);
-      console.log('Objeto interpretado (req.body):', parsedBody);
-      console.log('JSON Escapado:', escapedString);
+      console.log('Com barras escapadas (\\/):', withEscapedSlashes);
+      console.log('JSON Escapado Final:', escapedString);
 
       // 🔑 Sempre responde com JSON válido
       res.setHeader('Content-Type', 'application/json');
